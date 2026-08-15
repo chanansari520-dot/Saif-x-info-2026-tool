@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAIF X INFO - Free Indian Phone Number & Aadhaar Checker</title>
+    <style>
+        /* Reset & Base */
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', system-ui, sans-serif; }
+        body { background:#f4f7fc; color:#1e293b; display:flex; flex-direction:column; align-items:center; padding:20px; min-height:100vh; }
+        .container { max-width:920px; width:100%; }
+
+        /* Header */
+        .header { display:flex; justify-content:space-between; align-items:center; padding:16px 0; border-bottom:1px solid #e9edf2; margin-bottom:30px; flex-wrap:wrap; gap:12px; }
+        .logo { font-size:28px; font-weight:800; color:#0f172a; }
+        .logo span { color:#2563eb; }
+        .logo small { font-weight:400; font-size:14px; color:#64748b; margin-left:4px; }
+        .nav { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+        .nav a { color:#475569; padding:8px 16px; text-decoration:none; font-weight:500; font-size:15px; border-radius:40px; transition:0.2s; }
+        .nav a:hover { background:#f1f5f9; color:#2563eb; }
+        .login-btn-header { background:#2563eb; color:white !important; border:none; padding:8px 24px; border-radius:40px; font-weight:600; cursor:pointer; font-size:15px; transition:0.2s; }
+        .login-btn-header:hover { background:#1d4ed8; transform:scale(1.02); }
+        .user-badge { display:flex; align-items:center; gap:8px; background:#f1f5f9; padding:6px 16px 6px 20px; border-radius:40px; font-size:14px; font-weight:600; }
+        .user-badge .email { color:#1e293b; max-width:120px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .user-badge .logout-btn { background:none; border:none; color:#dc2626; font-weight:700; cursor:pointer; font-size:13px; }
+        #adminPanelBtn { display:none; background:#8b5cf6; color:white; padding:8px 20px; border-radius:40px; text-decoration:none; font-weight:600; margin-left:4px; cursor:pointer; border:none; font-size:14px; }
+        #adminPanelBtn:hover { background:#7c3aed; }
+
+        /* Hero */
+        .hero-card { background:white; border-radius:28px; padding:48px 40px; box-shadow:0 20px 50px -10px rgba(0,0,0,0.08); text-align:center; margin-bottom:30px; }
+        .hero-card h1 { font-size:36px; font-weight:700; color:#0f172a; margin-bottom:10px; }
+        .hero-card h1 span { background:linear-gradient(145deg,#2563eb,#1d4ed8); color:white; padding:0 14px; border-radius:40px; font-size:32px; }
+        .hero-card p { color:#64748b; font-size:18px; margin-bottom:32px; }
+
+        .input-tab { padding:10px 28px; border:2px solid #e2e8f0; border-radius:40px; background:white; color:#475569; font-weight:600; cursor:pointer; transition:0.2s; }
+        .input-tab.active { border-color:#2563eb; background:#2563eb; color:white; }
+        .input-tab:hover:not(.active) { border-color:#2563eb; background:#f0f7ff; }
+
+        .input-group { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:16px; }
+        .country-select { background:#f1f5f9; border:2px solid #e2e8f0; border-radius:60px; padding:0 20px; font-size:18px; font-weight:600; color:#0f172a; cursor:pointer; outline:none; height:58px; }
+        .country-select:focus { border-color:#2563eb; }
+        .phone-input { flex:1; min-width:240px; height:58px; padding:0 22px; font-size:18px; border:2px solid #e2e8f0; border-radius:60px; outline:none; background:#fafcff; transition:0.2s; letter-spacing:0.5px; }
+        .phone-input:focus { border-color:#2563eb; background:white; box-shadow:0 0 0 4px rgba(37,99,235,0.15); }
+        .check-btn { height:58px; padding:0 40px; background:#2563eb; color:white; font-size:18px; font-weight:600; border:none; border-radius:60px; cursor:pointer; transition:0.2s; box-shadow:0 8px 20px -6px #2563eb80; }
+        .check-btn:hover:not(:disabled) { background:#1d4ed8; transform:scale(1.02); }
+        .check-btn:disabled { opacity:0.5; cursor:not-allowed; box-shadow:none; }
+        .attempts-badge { display:inline-block; background:#f1f5f9; padding:10px 28px; border-radius:40px; font-size:15px; font-weight:600; color:#334155; margin-top:6px; }
+        .attempts-badge .credit-count { color:#2563eb; font-size:20px; font-weight:800; }
+        .attempts-badge .warning { color:#dc2626; font-weight:700; }
+        .attempts-badge button { background:#2563eb; color:white; border:none; padding:6px 18px; border-radius:40px; font-weight:600; cursor:pointer; font-size:13px; transition:0.2s; margin-left:6px; }
+        .attempts-badge button:hover { background:#1d4ed8; }
+
+        .results-card { background:#f8fafc; border-radius:20px; padding:28px 32px; margin-top:28px; border:2px dashed #d1d9e6; display:none; text-align:left; transition:0.3s; }
+        .results-card.active { display:block; border-color:#2563eb; background:#f0f7ff; }
+        .result-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px 30px; }
+        .result-item { display:flex; flex-direction:column; }
+        .result-item .label { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:#64748b; }
+        .result-item .value { font-size:18px; font-weight:600; color:#0f172a; margin-top:2px; word-break:break-word; }
+        .result-item .value.email { color:#2563eb; word-break:break-all; }
+        .result-divider { grid-column:1/-1; height:1px; background:#d1d9e6; margin:6px 0; }
+
+        .pricing-section { margin-top:60px; text-align:center; }
+        .pricing-section h2 { font-size:32px; font-weight:700; color:#0f172a; }
+        .pricing-section > p { color:#64748b; margin-bottom:30px; font-size:17px; }
+        .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:20px; }
+        .pricing-card { background:white; padding:28px 18px; border-radius:24px; box-shadow:0 8px 24px rgba(0,0,0,0.04); border:1px solid #e9edf2; transition:0.2s; position:relative; }
+        .pricing-card:hover { border-color:#2563eb; transform:translateY(-4px); box-shadow:0 16px 32px rgba(0,0,0,0.06); }
+        .pricing-card .plan { font-weight:700; font-size:20px; color:#0f172a; }
+        .pricing-card .price { font-size:32px; font-weight:800; color:#2563eb; margin:12px 0 6px; }
+        .pricing-card .price small { font-size:14px; font-weight:400; color:#64748b; }
+        .pricing-card .features { font-size:14px; color:#475569; line-height:1.6; margin-top:10px; }
+        .pricing-card .badge-popular { background:#2563eb; color:white; font-size:12px; font-weight:700; padding:4px 16px; border-radius:40px; display:inline-block; margin-top:10px; }
+        .pricing-card .buy-btn { margin-top:16px; background:#2563eb; color:white; border:none; padding:10px 20px; border-radius:60px; font-weight:600; cursor:pointer; width:100%; transition:0.2s; font-size:16px; }
+        .pricing-card .buy-btn:hover { background:#1d4ed8; }
+
+        .contact-section { margin-top:60px; text-align:center; padding:40px 20px; background:#f8fafc; border-radius:28px; }
+        .contact-section h2 { font-size:28px; font-weight:700; color:#0f172a; margin-bottom:12px; }
+        .contact-section p { color:#64748b; margin-bottom:20px; }
+        .instagram-btn { display:inline-block; background:linear-gradient(135deg,#405DE6,#5851DB,#833AB4,#C13584,#E1306C,#FD1D1D); color:white; padding:14px 40px; border-radius:60px; text-decoration:none; font-weight:700; font-size:18px; box-shadow:0 8px 24px rgba(225,48,108,0.3); transition:0.3s; }
+        .instagram-btn:hover { transform:scale(1.04); box-shadow:0 12px 32px rgba(225,48,108,0.4); }
+        .share-btn { padding:8px 14px; border:none; border-radius:40px; font-size:13px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:6px; transition:0.2s; }
+        .share-btn:hover { transform:scale(1.05); }
+
+        .footer { margin-top:30px; text-align:center; color:#94a3b8; font-size:14px; border-top:1px solid #e9edf2; padding-top:30px; }
+
+        /* Modals */
+        .modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); z-index:99999; justify-content:center; align-items:center; animation:fadeIn 0.3s ease; }
+        .modal-overlay.active { display:flex; }
+        .modal-card { background:white; max-width:440px; width:92%; padding:32px 28px; border-radius:28px; box-shadow:0 30px 80px rgba(0,0,0,0.25); position:relative; animation:slideUp 0.3s ease; max-height:90vh; overflow-y:auto; }
+        .modal-card .close-modal { position:absolute; top:16px; right:20px; background:none; border:none; font-size:26px; cursor:pointer; color:#94a3b8; }
+        .modal-card .close-modal:hover { color:#0f172a; }
+        @keyframes fadeIn { from{ opacity:0; } to{ opacity:1; } }
+        @keyframes slideUp { from{ transform:translateY(30px); opacity:0; } to{ transform:translateY(0); opacity:1; } }
+
+        .auth-logo { font-size:28px; font-weight:800; color:#0f172a; text-align:center; margin-bottom:4px; }
+        .auth-logo span { color:#2563eb; }
+        .auth-sub { text-align:center; color:#64748b; margin-bottom:20px; font-size:15px; }
+        .auth-tabs { display:flex; border-bottom:2px solid #e9edf2; margin-bottom:24px; }
+        .auth-tab { flex:1; padding:12px; background:none; border:none; font-size:16px; font-weight:600; color:#94a3b8; cursor:pointer; border-bottom:3px solid transparent; transition:0.2s; }
+        .auth-tab.active { color:#0f172a; border-bottom-color:#2563eb; }
+        .form-group { margin-bottom:16px; }
+        .form-group label { display:block; font-size:14px; font-weight:600; color:#334155; margin-bottom:6px; }
+        .form-group input { width:100%; padding:14px 16px; border:2px solid #e2e8f0; border-radius:12px; font-size:16px; outline:none; transition:0.2s; }
+        .form-group input:focus { border-color:#2563eb; }
+        .auth-btn { width:100%; padding:14px; background:#2563eb; color:white; border:none; border-radius:60px; font-size:17px; font-weight:600; cursor:pointer; transition:0.2s; box-shadow:0 8px 20px -6px #2563eb80; }
+        .auth-btn:hover { background:#1d4ed8; }
+
+        .upi-detail-box { background:#f1f5f9; padding:12px; border-radius:12px; font-size:14px; color:#1e293b; margin:16px 0; line-height:1.8; }
+        .upi-detail-box strong { color:#0f172a; }
+        .upi-pay-btn { display:inline-block; width:100%; padding:14px; background:#1a8c3a; color:white; border:none; border-radius:60px; font-size:18px; font-weight:600; text-decoration:none; margin:8px 0 12px; transition:0.2s; text-align:center; }
+        .upi-pay-btn:hover { background:#147a32; }
+        .copy-upi-btn { background:#e2e8f0; color:#1e293b; border:none; padding:8px 16px; border-radius:40px; font-weight:600; cursor:pointer; font-size:14px; }
+        .copy-upi-btn:hover { background:#cbd5e1; }
+        .utr-input { width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:12px; font-size:16px; outline:none; text-align:center; margin-bottom:12px; }
+        .utr-input:focus { border-color:#2563eb; }
+        .verify-btn { width:100%; padding:14px; background:#2563eb; color:white; border:none; border-radius:60px; font-size:18px; font-weight:600; cursor:pointer; transition:0.2s; }
+        .verify-btn:hover { background:#1d4ed8; }
+        .modal-hint { font-size:12px; color:#94a3b8; margin-top:10px; }
+
+        .admin-modal .modal-card { max-width:900px; width:95%; padding:30px; }
+        .admin-stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:16px; margin-bottom:28px; }
+        .stat-card { padding:16px; border-radius:16px; text-align:center; }
+        .stat-card .number { font-size:28px; font-weight:800; }
+        .stat-card .label { font-size:14px; color:#64748b; }
+        .admin-tabs { display:flex; gap:4px; border-bottom:2px solid #e9edf2; margin-bottom:20px; flex-wrap:wrap; }
+        .admin-tab { padding:10px 20px; background:none; border:none; font-weight:600; color:#94a3b8; border-bottom:3px solid transparent; cursor:pointer; transition:0.2s; font-size:14px; }
+        .admin-tab.active { color:#2563eb; border-bottom-color:#2563eb; }
+        .admin-tab .badge { background:#dc2626; color:white; border-radius:40px; padding:0 8px; font-size:12px; margin-left:4px; }
+        .admin-table-wrap { background:#f8fafc; border-radius:12px; padding:16px; max-height:350px; overflow-y:auto; }
+        .admin-table { width:100%; border-collapse:collapse; font-size:14px; }
+        .admin-table th { text-align:left; padding:8px; border-bottom:2px solid #e2e8f0; color:#475569; }
+        .admin-table td { padding:8px; border-bottom:1px solid #e9edf2; }
+        .payment-item { background:white; border:1px solid #e2e8f0; border-radius:12px; padding:14px 16px; margin-bottom:10px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px; }
+        .payment-item .info { flex:1; }
+        .payment-item .actions { display:flex; gap:8px; }
+        .btn-approve { background:#16a34a; color:white; border:none; padding:6px 18px; border-radius:40px; font-weight:600; cursor:pointer; }
+        .btn-reject { background:#dc2626; color:white; border:none; padding:6px 18px; border-radius:40px; font-weight:600; cursor:pointer; }
+        .playlist-item.active { background:#dbeafe; border-radius:8px; }
+        #musicUploadForm input[type="file"] { padding:10px; border:2px dashed #cbd5e1; border-radius:12px; background:white; }
+
+        .chatbot-btn { position:fixed; bottom:24px; right:24px; width:60px; height:60px; background:linear-gradient(135deg,#2563eb,#1d4ed8); color:white; border:none; border-radius:50%; font-size:30px; box-shadow:0 8px 24px rgba(37,99,235,0.4); cursor:pointer; z-index:9999; transition:0.3s; display:flex; align-items:center; justify-content:center; }
+        .chatbot-btn:hover { transform:scale(1.1); box-shadow:0 12px 32px rgba(37,99,235,0.5); }
+        .chatbot-modal { display:none; position:fixed; bottom:96px; right:24px; width:400px; max-width:92vw; max-height:560px; background:white; border-radius:24px; box-shadow:0 20px 60px rgba(0,0,0,0.18); z-index:9998; flex-direction:column; overflow:hidden; animation:slideUp 0.3s ease; }
+        .chatbot-modal.active { display:flex; }
+        .chatbot-header { background:linear-gradient(135deg,#2563eb,#1d4ed8); color:white; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; font-weight:700; font-size:16px; }
+        .chatbot-header span { display:flex; align-items:center; gap:8px; }
+        .chatbot-header button { background:none; border:none; color:white; font-size:24px; cursor:pointer; opacity:0.8; }
+        .chatbot-header button:hover { opacity:1; }
+        .chatbot-messages { flex:1; padding:16px; overflow-y:auto; max-height:380px; background:#f8fafc; min-height:220px; }
+        .chatbot-message { margin-bottom:12px; padding:12px 16px; border-radius:16px; max-width:88%; word-wrap:break-word; font-size:14px; line-height:1.6; }
+        .chatbot-message.user { background:#2563eb; color:white; margin-left:auto; border-bottom-right-radius:4px; }
+        .chatbot-message.bot { background:white; color:#1e293b; border:1px solid #e2e8f0; border-bottom-left-radius:4px; }
+        .chatbot-message.bot strong { color:#2563eb; }
+        .chatbot-input { display:flex; padding:12px; border-top:1px solid #e2e8f0; background:white; gap:8px; }
+        .chatbot-input input { flex:1; padding:10px 14px; border:1px solid #e2e8f0; border-radius:40px; outline:none; font-size:14px; transition:0.2s; }
+        .chatbot-input input:focus { border-color:#2563eb; box-shadow:0 0 0 3px rgba(37,99,235,0.1); }
+        .chatbot-input button { background:#2563eb; color:white; border:none; border-radius:40px; padding:10px 20px; font-weight:600; cursor:pointer; transition:0.2s; font-size:14px; }
+        .chatbot-input button:hover { background:#1d4ed8; }
+        .chatbot-suggestions { display:flex; flex-wrap:wrap; gap:6px; padding:0 12px 10px 12px; background:#f8fafc; }
+        .chatbot-suggestions button { background:#e9edf2; border:none; padding:5px 14px; border-radius:30px; font-size:12px; cursor:pointer; color:#334155; transition:0.2s; white-space:nowrap; }
+        .chatbot-suggestions button:hover { background:#2563eb; color:white; }
+
+        @media (max-width:640px) {
+            .hero-card { padding:30px 18px; }
+            .hero-card h1 { font-size:26px; }
+            .input-group { flex-direction:column; align-items:stretch; }
+            .country-select,.phone-input,.check-btn { width:100%; height:52px; font-size:16px; }
+            .result-grid { grid-template-columns:1fr; }
+            .header { flex-direction:column; align-items:stretch; }
+            .nav { justify-content:center; }
+            .pricing-grid { grid-template-columns:1fr 1fr; }
+            .modal-card { padding:24px 16px; }
+            .admin-modal .modal-card { padding:16px; }
+            .payment-item { flex-direction:column; align-items:stretch; }
+            .payment-item .actions { justify-content:flex-end; }
+            .admin-stats { grid-template-columns:1fr 1fr; }
+            .chatbot-modal { bottom:80px; right:12px; width:calc(100vw - 24px); max-height:70vh; }
+            .chatbot-messages { max-height:300px; }
+            .chatbot-suggestions button { font-size:11px; padding:4px 12px; }
+        }
+        @media (max-width:420px) { .pricing-grid { grid-template-columns:1fr; } .admin-stats { grid-template-columns:1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo">SAIF <span>X</span> INFO <small>| Verify +91</small></div>
+        <div class="nav">
+            <a href="#">Home</a>
+            <a href="#pricing">Pricing</a>
+            <button class="login-btn-header" id="headerLoginBtn" onclick="openLoginModal()">Login</button>
+            <button id="adminPanelBtn" onclick="openAdminDashboard()">🛡️ Admin</button>
+            <div class="user-badge" id="userBadge" style="display:none;">
+                <span class="email" id="userEmailDisplay">user@email.com</span>
+                <span style="color:#2563eb;">💰 <span id="headerCredits">0</span></span>
+                <button class="logout-btn" onclick="logoutUser()">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <div class="hero-card">
+        <h1 id="heroTitle">🇮🇳 Free Indian <span>+91</span> Checker</h1>
+        <p id="heroSub">Get Name, Address, Circle & more for any 10-digit Indian number or Aadhaar.</p>
+        <p id="heroDesc" style="font-size:14px; color:#94a3b8; margin-top:-20px; margin-bottom:20px;">Verify mobile number or Aadhaar instantly.</p>
+
+        <div style="display:flex; gap:10px; justify-content:center; margin-bottom:16px;">
+            <button id="btnNumber" class="input-tab active" onclick="switchInputType('number')" style="padding:10px 28px; border:2px solid #2563eb; border-radius:40px; background:#2563eb; color:white; font-weight:600; cursor:pointer; transition:0.2s;">
+                📱 Number Info
+            </button>
+            <button id="btnAadhar" class="input-tab" onclick="switchInputType('aadhar')" style="padding:10px 28px; border:2px solid #e2e8f0; border-radius:40px; background:white; color:#475569; font-weight:600; cursor:pointer; transition:0.2s;">
+                🆔 Aadhaar Info
+            </button>
+        </div>
+
+        <div class="input-group">
+            <select class="country-select" id="countryCode">
+                <option value="+91" selected>🇮🇳 +91</option>
+            </select>
+            <input type="text" class="phone-input" id="phoneInput" placeholder="Enter 10-digit mobile number" maxlength="10" inputmode="numeric">
+            <button class="check-btn" id="checkBtn" onclick="handleCheck()">🔍 Check Number</button>
+        </div>
+
+        <div class="attempts-badge" id="attemptsDisplay">
+            🆓 <span class="credit-count" id="attemptCount">2</span> free lookups remaining
+        </div>
+
+        <div class="results-card" id="resultsCard">
+            <div class="result-grid">
+                <div class="result-item"><span class="label">📛 Name</span><span class="value" id="rName">—</span></div>
+                <div class="result-item"><span class="label">👤 Father/Husband</span><span class="value" id="rFname">—</span></div>
+                <div class="result-item"><span class="label">🆔 Aadhaar</span><span class="value" id="rAadhar">—</span></div>
+                <div class="result-item"><span class="label">📱 Alternate</span><span class="value" id="rAlt">—</span></div>
+                <div class="result-item" style="grid-column:1/-1;"><span class="label">📍 Address</span><span class="value" id="rAddress" style="font-size:15px;font-weight:500;line-height:1.5;">—</span></div>
+                <div class="result-divider"></div>
+                <div class="result-item"><span class="label">📶 Circle</span><span class="value" id="rCircle">—</span></div>
+                <div class="result-item"><span class="label">📧 Email</span><span class="value email" id="rEmail">—</span></div>
+                <div class="result-item"><span class="label">📞 Number</span><span class="value" id="rNum">—</span></div>
+                <div class="result-item"><span class="label">⏱️ Timezone</span><span class="value" id="rTimezone">Asia/Kolkata (UTC +5:30)</span></div>
+            </div>
+            <div id="resultActions" style="display:none; margin-top:16px; display:flex; gap:10px; justify-content:center;">
+                <button onclick="copyResult()" style="background:#2563eb; color:white; border:none; padding:8px 20px; border-radius:40px; font-weight:600; cursor:pointer;">📋 Copy Result</button>
+                <button onclick="clearAll()" style="background:#e2e8f0; color:#1e293b; border:none; padding:8px 20px; border-radius:40px; font-weight:600; cursor:pointer;">🧹 Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRICING -->
+    <div class="pricing-section" id="pricing">
+        <h2 id="pricingHeading">💰 Choose Your Pack</h2>
+        <p id="pricingDesc">Pay via UPI — amount auto-filled. Credits add after admin approval.</p>
+        <div class="pricing-grid">
+            <div class="pricing-card"><div class="plan">Starter</div><div class="price">₹100</div><div class="features"><strong>20 Searches</strong><br>₹5 / search</div><button class="buy-btn" onclick="openUPIModal(100,20)">Buy Now</button></div>
+            <div class="pricing-card" style="border-color:#2563eb; background:#f0f7ff;"><div class="plan">Value</div><div class="price">₹200</div><div class="features"><strong>30 Searches</strong><br>₹6.67 / search</div><div class="badge-popular">🔥 Most Popular</div><button class="buy-btn" onclick="openUPIModal(200,30)">Buy Now</button></div>
+            <div class="pricing-card"><div class="plan">Pro</div><div class="price">₹300</div><div class="features"><strong>45 Searches</strong><br>₹6.67 / search</div><button class="buy-btn" onclick="openUPIModal(300,45)">Buy Now</button></div>
+            <div class="pricing-card"><div class="plan">Elite</div><div class="price">₹500</div><div class="features"><strong>60 Searches</strong><br>₹8.33 / search</div><button class="buy-btn" onclick="openUPIModal(500,60)">Buy Now</button></div>
+        </div>
+        <p style="margin-top:20px; font-size:14px; color:#64748b;">📱 Clicking "Buy Now" opens GPay / PhonePe / Paytm with amount pre-filled.</p>
+    </div>
+
+    <!-- CONTACT & SHARE -->
+    <div class="contact-section">
+        <h2>📬 Contact & Share</h2>
+        <p>Follow us on Instagram for updates and support</p>
+        <a href="https://www.instagram.com/nxt_level_saif?igsh=N2F6andhYjczaXow" target="_blank" class="instagram-btn">📸 Follow on Instagram</a>
+
+        <div style="margin-top:24px; padding-top:20px; border-top:1px solid #e9edf2;">
+            <p style="font-size:14px; color:#64748b; margin-bottom:12px;">🔗 Share this website with your friends!</p>
+            <div style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center;">
+                <button onclick="shareOn('telegram')" class="share-btn" style="background:#0088cc; color:white;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    Telegram
+                </button>
+                <button onclick="shareOn('whatsapp')" class="share-btn" style="background:#25D366; color:white;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    WhatsApp
+                </button>
+                <button onclick="shareOn('twitter')" class="share-btn" style="background:#000000; color:white;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    Twitter
+                </button>
+                <button onclick="shareOn('facebook')" class="share-btn" style="background:#1877F2; color:white;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    Facebook
+                </button>
+                <button onclick="copyShareLink()" class="share-btn" style="background:#64748b; color:white;">📋 Copy Link</button>
+            </div>
+            <div id="shareReferralDisplay" style="margin-top:10px; font-size:13px; color:#64748b;">
+                🔗 Your referral code: <span id="shareReferralCode" style="font-weight:700; color:#2563eb; background:#f1f5f9; padding:2px 12px; border-radius:40px;">Login to see</span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer" id="footerText">© 2026 SAIF X INFO — Made in India 🇮🇳 for Indian numbers.</footer>
+</div>
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal-overlay">
+    <div class="modal-card">
+        <button class="close-modal" onclick="closeLoginModal()">✕</button>
+        <div class="auth-logo">SAIF <span>X</span> INFO</div>
+        <div class="auth-sub">Login to your account</div>
+        <div class="auth-tabs">
+            <button class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button>
+            <button class="auth-tab" onclick="switchAuthTab('signup')">Create One</button>
+        </div>
+        <div id="loginForm">
+            <div class="form-group"><label>Email address</label><input type="email" id="loginEmail" placeholder="your@email.com"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+                <label style="font-size:14px; color:#475569; display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" id="rememberMe" checked> Remember me</label>
+                <a href="#" style="font-size:14px; color:#2563eb; text-decoration:none; font-weight:500;">Forgot password?</a>
+            </div>
+            <button class="auth-btn" onclick="handleLogin()">Sign In</button>
+        </div>
+        <div id="signupForm" style="display:none;">
+            <div class="form-group"><label>Email address</label><input type="email" id="signupEmail" placeholder="your@email.com"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="signupPassword" placeholder="••••••••"></div>
+            <div class="form-group"><label>Referral Code <span style="font-weight:400;color:#94a3b8;">(optional)</span></label><input type="text" id="signupReferral" placeholder="Enter friend's code" style="text-transform:uppercase; letter-spacing:1px;"><div style="font-size:12px; color:#64748b; margin-top:4px;">💡 Earn 5 bonus credits when someone uses your code!</div></div>
+            <div style="margin-bottom:20px; font-size:13px; color:#64748b;">By creating an account, you agree to our Terms & Privacy Policy.</div>
+            <button class="auth-btn" onclick="handleSignup()">Create Account</button>
+        </div>
+        <div style="margin-top:20px; text-align:center; font-size:13px; color:#94a3b8;">Protected by <span style="font-weight:600; color:#0f172a;">🔒 Cloudflare</span></div>
+    </div>
+</div>
+
+<!-- UPI MODAL -->
+<div id="upiModal" class="modal-overlay">
+    <div class="modal-card">
+        <button class="close-modal" onclick="closeUPIModal()">✕</button>
+        <h3 style="font-size:22px; color:#0f172a; text-align:center;">💳 Pay via UPI</h3>
+        <p style="color:#64748b; text-align:center; margin-bottom:4px;">Amount will be pre-filled in your UPI app.</p>
+        <div class="upi-detail-box">
+            <strong>UPI ID:</strong> <span id="upiDisplay">abusaifansari@ybl</span><br>
+            <strong>Amount:</strong> ₹<span id="upiAmount">100</span><br>
+            <strong>Credits:</strong> <span id="upiCredits">20</span> searches
+        </div>
+        <a id="upiPayBtn" href="#" target="_blank" class="upi-pay-btn">📲 Pay Now (GPay / PhonePe / Paytm)</a>
+        <div style="display:flex; gap:8px; justify-content:center; margin-bottom:12px;"><button class="copy-upi-btn" onclick="copyUPI()">📋 Copy UPI ID</button></div>
+        <hr style="margin:16px 0; border-color:#e9edf2;">
+        <p style="font-size:14px; color:#64748b; margin-bottom:10px;">After payment, enter UTR / Transaction ID:</p>
+        <input type="text" id="utrInput" class="utr-input" placeholder="e.g. 123456789012">
+        <button class="verify-btn" onclick="submitPaymentForApproval()">📤 Submit for Approval</button>
+        <p class="modal-hint">🔒 Admin will verify & approve. You'll get Telegram notification.</p>
+    </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div id="adminModal" class="modal-overlay admin-modal">
+    <div class="modal-card">
+        <button class="close-modal" onclick="closeAdminDashboard()">✕</button>
+        <h2 style="font-size:28px; color:#0f172a;">🛡️ Admin Dashboard</h2>
+        <p style="color:#64748b; margin-bottom:20px;">Welcome, <strong id="adminEmailDisplay">admin@saif.in</strong></p>
+        <div class="admin-stats">
+            <div class="stat-card" style="background:#f0f7ff;"><div class="number" style="color:#2563eb;" id="statUsers">0</div><div class="label">Total Users</div></div>
+            <div class="stat-card" style="background:#f0fdf4;"><div class="number" style="color:#16a34a;" id="statSearches">0</div><div class="label">Total Searches</div></div>
+            <div class="stat-card" style="background:#fefce8;"><div class="number" style="color:#eab308;" id="statRevenue">₹0</div><div class="label">Revenue</div></div>
+            <div class="stat-card" style="background:#fef2f2;"><div class="number" style="color:#dc2626;" id="statCredits">0</div><div class="label">Credits Used</div></div>
+            <div class="stat-card" style="background:#f5f3ff;"><div class="number" style="color:#8b5cf6;" id="statReferrals">0</div><div class="label">Referrals</div></div>
+        </div>
+        <div class="admin-tabs">
+            <button class="admin-tab active" onclick="switchAdminTab('users')">👥 Users</button>
+            <button class="admin-tab" onclick="switchAdminTab('searches')">🔍 Searches</button>
+            <button class="admin-tab" onclick="switchAdminTab('credits')">💰 Credits</button>
+            <button class="admin-tab" onclick="switchAdminTab('payments')">💳 Payments <span class="badge" id="pendingCount">0</span></button>
+            <button class="admin-tab" onclick="switchAdminTab('music')">🎵 Music</button>
+            <button class="admin-tab" onclick="switchAdminTab('edittext')">✏️ Edit Text</button>
+        </div>
+        <!-- Users Tab -->
+        <div id="adminUsers"><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Email</th><th>Credits</th><th>Plan</th><th>Joined</th></tr></thead><tbody id="adminUsersTable"><tr><td colspan="4" style="padding:16px; text-align:center; color:#94a3b8;">Loading...</td></tr></tbody></table></div></div>
+        <!-- Searches Tab -->
+        <div id="adminSearches" style="display:none;"><div class="admin-table-wrap"><table class="admin-table"><thead><tr><th>Number</th><th>User</th><th>Time</th><th>Status</th></tr></thead><tbody id="adminSearchesTable"><tr><td colspan="4" style="padding:16px; text-align:center; color:#94a3b8;">Loading...</td></tr></tbody></table></div></div>
+        <!-- Credits Tab -->
+        <div id="adminCredits" style="display:none;">
+            <p style="color:#64748b; margin-bottom:12px;">Manually add/remove credits for any user.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; background:#f1f5f9; padding:16px; border-radius:12px;">
+                <input type="email" id="adminUserEmail" placeholder="User email" style="flex:1; min-width:180px; padding:10px 14px; border:2px solid #e2e8f0; border-radius:60px; outline:none;">
+                <input type="number" id="adminCreditAmount" placeholder="Credits" style="width:120px; padding:10px 14px; border:2px solid #e2e8f0; border-radius:60px; outline:none;">
+                <button onclick="adminAddCredits()" style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:60px; font-weight:600; cursor:pointer;">Add</button>
+                <button onclick="adminRemoveCredits()" style="background:#dc2626; color:white; border:none; padding:10px 24px; border-radius:60px; font-weight:600; cursor:pointer;">Remove</button>
+            </div>
+            <div id="adminCreditMessage" style="margin-top:12px; font-size:14px;"></div>
+        </div>
+        <!-- Payments Tab -->
+        <div id="adminPayments" style="display:none;">
+            <p style="color:#64748b; margin-bottom:12px;">Pending payment requests — approve or reject.</p>
+            <div id="paymentsList"><p style="color:#94a3b8; padding:20px; text-align:center;">Loading...</p></div>
+        </div>
+        <!-- Music Tab -->
+        <div id="adminMusic" style="display:none;">
+            <div style="background:#f0f7ff; padding:16px; border-radius:12px; margin-bottom:16px;">
+                <h4 style="margin-bottom:8px;">🎵 Music Player Controls</h4>
+                <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                    <button onclick="musicControl('play')" style="background:#16a34a; color:white; border:none; padding:8px 20px; border-radius:40px; font-weight:600; cursor:pointer;">▶️ Play</button>
+                    <button onclick="musicControl('pause')" style="background:#eab308; color:white; border:none; padding:8px 20px; border-radius:40px; font-weight:600; cursor:pointer;">⏸️ Pause</button>
+                    <button onclick="musicControl('stop')" style="background:#dc2626; color:white; border:none; padding:8px 20px; border-radius:40px; font-weight:600; cursor:pointer;">⏹️ Stop</button>
+                    <button onclick="musicControl('prev')" style="background:#6366f1; color:white; border:none; padding:8px 20px; border-radius:40px; font-weight:600; cursor:pointer;">⏪ Prev</button>
+                    <button onclick="musicControl('next')" style="background:#6366f1; color:white; border:none; padding:8px 20px; border-radius:40px; font-weight:600; cursor:pointer;">⏩ Next</button>
+                </div>
+                <div style="margin-top:8px; font-size:14px; color:#475569;">Now Playing: <span id="nowPlayingText">None</span></div>
+            </div>
+            <div style="background:#f1f5f9; padding:16px; border-radius:12px;">
+                <h4 style="margin-bottom:8px;">📤 Upload Songs</h4>
+                <form id="musicUploadForm" style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
+                    <input type="file" id="musicFiles" accept=".mp3,.wav,.ogg" multiple style="flex:1; min-width:200px; padding:8px; border:2px dashed #e2e8f0; border-radius:12px;">
+                    <button type="submit" style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:40px; font-weight:600; cursor:pointer;">Upload</button>
+                </form>
+                <div id="uploadStatus" style="margin-top:8px; font-size:14px;"></div>
+            </div>
+            <div style="margin-top:16px;">
+                <h4 style="margin-bottom:8px;">📀 Playlist</h4>
+                <div id="playlistContainer" style="background:#f8fafc; border-radius:12px; padding:12px; max-height:250px; overflow-y:auto;">Loading...</div>
+            </div>
+        </div>
+        <!-- Edit Text Tab -->
+        <div id="adminEditText" style="display:none;">
+            <p style="color:#64748b; margin-bottom:16px;">Edit any text on the website. Changes reflect instantly.</p>
+            <div style="display:grid; gap:16px;">
+                <div><label style="font-weight:600; font-size:14px; display:block; margin-bottom:4px;">Hero Title</label><input type="text" id="editHeroTitle" class="edit-input" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:12px; font-size:16px;"></div>
+                <div><label style="font-weight:600; font-size:14px; display:block; margin-bottom:4px;">Hero Subtitle</label><input type="text" id="editHeroSub" class="edit-input" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:12px; font-size:16px;"></div>
+                <div><label style="font-weight:600; font-size:14px; display:block; margin-bottom:4px;">Hero Description</label><input type="text" id="editHeroDesc" class="edit-input" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:12px; font-size:16px;"></div>
+                <div><label style="font-weight:600; font-size:14px; display:block; margin-bottom:4px;">Pricing Heading</label><input type="text" id="editPricingHeading" class="edit-input" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:12px; font-size:16px;"></div>
+                <div><label style="font-weight:600; font-size:14px; display:block; margin-bottom:4px;">Pricing Description</label><input type="text" id="editPricingDesc" class="edit-input" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:12px; font-size:16px;"></div>
+                <div><label style="font-weight:600; font-size:14px; display:block; margin-bottom:4px;">Footer Text</label><input type="text" id="editFooter" class="edit-input" style="width:100%; padding:12px 16px; border:2px solid #e2e8f0; border-radius:12px; font-size:16px;"></div>
+            </div>
+            <button onclick="saveTextEdits()" style="margin-top:20px; width:100%; padding:14px; background:#2563eb; color:white; border:none; border-radius:60px; font-size:18px; font-weight:600; cursor:pointer;">💾 Save Changes</button>
+            <div id="editTextStatus" style="margin-top:10px; font-size:14px; text-align:center;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- CHATBOT -->
+<button class="chatbot-btn" id="chatToggle" onclick="toggleChat()">💬</button>
+<div class="chatbot-modal" id="chatModal">
+    <div class="chatbot-header">
+        <span>🤖 SAIF X INFO Guide</span>
+        <button onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chatbot-messages" id="chatMessages">
+        <div class="chatbot-message bot">👋 <strong>Namaste!</strong> Main SAIF X INFO ka AI guide hoon.<br><span style="font-size:13px;color:#64748b;">Mujhse website ke baare mein kuch bhi poochhiye — kaise use karein, pricing, admin, music, referral, payment, troubleshooting ... sab!</span></div>
+    </div>
+    <div class="chatbot-suggestions">
+        <button onclick="askQuestion('Website kya hai?')">❓ Website kya hai?</button>
+        <button onclick="askQuestion('Number kaise check karein?')">🔍 Number kaise check karein?</button>
+        <button onclick="askQuestion('Credits kaise kharidein?')">💰 Credits kaise kharidein?</button>
+        <button onclick="askQuestion('Admin kaise login karein?')">🛡️ Admin kaise login karein?</button>
+    </div>
+    <div class="chatbot-input">
+        <input type="text" id="chatInput" placeholder="Type your question..." onkeydown="if(event.key==='Enter') sendMessage()">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<audio id="globalAudio" style="display:none;"></audio>
+
+<script>
+// ================================================================
+//  COMPLETE JAVASCRIPT — ALL FEATURES
+// ================================================================
+
+const API_BASE = '';
+const YOUR_UPI_ID = 'abusaifansari@ybl';
+const ADMIN_EMAIL = 'mdabusaifansari96@gmail.com';
+
+let authToken = localStorage.getItem('authToken');
+let userCredits = parseInt(localStorage.getItem('userCredits')) || 0;
+let userEmail = localStorage.getItem('userEmail') || '';
+let userReferralCode = localStorage.getItem('userReferralCode') || '';
+let isAdmin = localStorage.getItem('isAdmin') === 'true';
+let currentUPIAmount = 0;
+let currentUPICredits = 0;
+let currentInputType = 'number';
+
+// DOM elements
+const phoneInput = document.getElementById('phoneInput');
+const checkBtn = document.getElementById('checkBtn');
+const resultsCard = document.getElementById('resultsCard');
+const rName = document.getElementById('rName');
+const rFname = document.getElementById('rFname');
+const rAadhar = document.getElementById('rAadhar');
+const rAlt = document.getElementById('rAlt');
+const rAddress = document.getElementById('rAddress');
+const rCircle = document.getElementById('rCircle');
+const rEmail = document.getElementById('rEmail');
+const rNum = document.getElementById('rNum');
+const rTimezone = document.getElementById('rTimezone');
+
+const authModal = document.getElementById('authModal');
+const loginEmail = document.getElementById('loginEmail');
+const loginPassword = document.getElementById('loginPassword');
+const signupEmail = document.getElementById('signupEmail');
+const signupPassword = document.getElementById('signupPassword');
+const signupReferral = document.getElementById('signupReferral');
+
+const upiModal = document.getElementById('upiModal');
+const upiAmount = document.getElementById('upiAmount');
+const upiCredits = document.getElementById('upiCredits');
+const upiPayBtn = document.getElementById('upiPayBtn');
+const utrInput = document.getElementById('utrInput');
+
+const adminModal = document.getElementById('adminModal');
+const adminEmailDisplay = document.getElementById('adminEmailDisplay');
+const userBadge = document.getElementById('userBadge');
+const userEmailDisplay = document.getElementById('userEmailDisplay');
+const headerCredits = document.getElementById('headerCredits');
+const headerLoginBtn = document.getElementById('headerLoginBtn');
+const adminPanelBtn = document.getElementById('adminPanelBtn');
+
+// ---------- UI UPDATE ----------
+function updateUI() {
+    const badge = document.getElementById('attemptsDisplay');
+    if (userCredits > 0) {
+        badge.innerHTML = `💰 <span class="credit-count">${userCredits}</span> credits left ${userReferralCode ? `| 🔗 <span style="font-weight:700;color:#8b5cf6;">${userReferralCode}</span>` : ''} <button onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Buy</button>`;
+        checkBtn.disabled = false;
+    } else {
+        badge.innerHTML = `⛔ <span class="warning">0 credits left</span> ${userReferralCode ? `| 🔗 <span style="font-weight:700;color:#8b5cf6;">${userReferralCode}</span>` : ''} <button onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Buy Pack</button>`;
+        checkBtn.disabled = true;
+    }
+    if (userEmail) {
+        userBadge.style.display = 'flex';
+        userEmailDisplay.textContent = userEmail;
+        headerCredits.textContent = userCredits;
+        headerLoginBtn.style.display = 'none';
+        adminPanelBtn.style.display = isAdmin ? 'inline-block' : 'none';
+    } else {
+        userBadge.style.display = 'none';
+        headerLoginBtn.style.display = 'inline-block';
+        adminPanelBtn.style.display = 'none';
+    }
+    updateShareReferral();
+}
+
+// ---------- INPUT TYPE SWITCH ----------
+function switchInputType(type) {
+    currentInputType = type;
+    const btnNumber = document.getElementById('btnNumber');
+    const btnAadhar = document.getElementById('btnAadhar');
+    const countryCode = document.getElementById('countryCode');
+
+    if (type === 'number') {
+        btnNumber.className = 'input-tab active';
+        btnNumber.style.background = '#2563eb';
+        btnNumber.style.color = 'white';
+        btnNumber.style.borderColor = '#2563eb';
+        btnAadhar.className = 'input-tab';
+        btnAadhar.style.background = 'white';
+        btnAadhar.style.color = '#475569';
+        btnAadhar.style.borderColor = '#e2e8f0';
+        phoneInput.placeholder = 'Enter 10-digit mobile number';
+        phoneInput.maxLength = 10;
+        phoneInput.inputMode = 'numeric';
+        countryCode.style.display = 'block';
+        checkBtn.textContent = '🔍 Check Number';
+    } else {
+        btnAadhar.className = 'input-tab active';
+        btnAadhar.style.background = '#2563eb';
+        btnAadhar.style.color = 'white';
+        btnAadhar.style.borderColor = '#2563eb';
+        btnNumber.className = 'input-tab';
+        btnNumber.style.background = 'white';
+        btnNumber.style.color = '#475569';
+        btnNumber.style.borderColor = '#e2e8f0';
+        phoneInput.placeholder = 'Enter 12-digit Aadhaar number';
+        phoneInput.maxLength = 12;
+        phoneInput.inputMode = 'numeric';
+        countryCode.style.display = 'none';
+        checkBtn.textContent = '🔍 Check Aadhaar';
+    }
+    resultsCard.classList.remove('active');
+    document.getElementById('resultActions').style.display = 'none';
+    phoneInput.value = '';
+    phoneInput.focus();
+}
+
+// ---------- AUTH ----------
+function openLoginModal() { authModal.classList.add('active'); switchAuthTab('login'); }
+function closeLoginModal() { authModal.classList.remove('active'); }
+function switchAuthTab(tab) {
+    const tabs = document.querySelectorAll('.auth-tab');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    if (tab === 'login') {
+        tabs.forEach(t => t.classList.remove('active')); tabs[0].classList.add('active');
+        loginForm.style.display = 'block'; signupForm.style.display = 'none';
+    } else {
+        tabs.forEach(t => t.classList.remove('active')); tabs[1].classList.add('active');
+        loginForm.style.display = 'none'; signupForm.style.display = 'block';
+    }
+}
+
+async function handleLogin() {
+    const email = loginEmail.value.trim();
+    const password = loginPassword.value.trim();
+    if (!email || !password) { alert('Fill all fields.'); return; }
+    if (email === ADMIN_EMAIL && password === 'SAIFALI@123') {
+        authToken = 'admin-token'; userEmail = email; userCredits = 999; userReferralCode = 'ADMIN123'; isAdmin = true;
+        localStorage.setItem('authToken', authToken); localStorage.setItem('userEmail', userEmail);
+        localStorage.setItem('userCredits', userCredits); localStorage.setItem('userReferralCode', userReferralCode);
+        localStorage.setItem('isAdmin', 'true');
+        updateUI(); closeLoginModal(); alert('✅ Admin logged in!'); return;
+    }
+    try {
+        const res = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+        const data = await res.json();
+        if (res.ok) {
+            authToken = data.token; userEmail = email; userCredits = data.credits || 2; userReferralCode = data.referralCode || ''; isAdmin = (email === ADMIN_EMAIL);
+            localStorage.setItem('authToken', authToken); localStorage.setItem('userEmail', userEmail);
+            localStorage.setItem('userCredits', userCredits); localStorage.setItem('userReferralCode', userReferralCode);
+            localStorage.setItem('isAdmin', isAdmin ? 'true' : 'false');
+            updateUI(); closeLoginModal(); alert('✅ Logged in!');
+        } else { alert('Login failed: ' + data.error); }
+    } catch (e) { alert('Server error.'); }
+}
+
+async function handleSignup() {
+    const email = signupEmail.value.trim();
+    const password = signupPassword.value.trim();
+    const referral = signupReferral.value.trim().toUpperCase();
+    if (!email || !password) { alert('Fill all fields.'); return; }
+    if (password.length < 6) { alert('Password must be 6+ chars.'); return; }
+    try {
+        const res = await fetch('/api/auth/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password, referralCode: referral || null }) });
+        const data = await res.json();
+        if (res.ok) {
+            authToken = data.token; userEmail = email; userCredits = data.credits || 2; userReferralCode = data.referralCode || ''; isAdmin = (email === ADMIN_EMAIL);
+            localStorage.setItem('authToken', authToken); localStorage.setItem('userEmail', userEmail);
+            localStorage.setItem('userCredits', userCredits); localStorage.setItem('userReferralCode', userReferralCode);
+            localStorage.setItem('isAdmin', isAdmin ? 'true' : 'false');
+            updateUI(); closeLoginModal();
+            alert(data.referredBy ? `🎉 Referrer got 5 bonus! You have ${userCredits} credits.` : `🎉 Your code: ${userReferralCode}. Share & earn!`);
+        } else { alert('Signup failed: ' + data.error); }
+    } catch (e) { alert('Server error.'); }
+}
+
+function logoutUser() { localStorage.clear(); authToken = null; userEmail = ''; userCredits = 0; userReferralCode = ''; isAdmin = false; updateUI(); alert('Logged out.'); }
+
+// ---------- PHONE/AADHAAR CHECK ----------
+phoneInput.addEventListener('input', function() {
+    if (currentInputType === 'number') {
+        this.value = this.value.replace(/\D/g, '').slice(0, 10);
+    } else {
+        this.value = this.value.replace(/\D/g, '').slice(0, 12);
+    }
+});
+phoneInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleCheck(); });
+
+async function handleCheck() {
+    if (!authToken) { alert('Please login.'); openLoginModal(); return; }
+    if (userCredits <= 0) { alert('No credits! Buy a pack.'); document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' }); return; }
+
+    const rawInput = phoneInput.value.trim();
+    if (currentInputType === 'number') {
+        if (!/^[6-9]\d{9}$/.test(rawInput)) {
+            alert('Enter valid 10-digit Indian number (starting with 6,7,8,9).');
+            return;
+        }
+    } else {
+        if (!/^\d{12}$/.test(rawInput)) {
+            alert('Enter valid 12-digit Aadhaar number.');
+            return;
+        }
+    }
+
+    checkBtn.textContent = 'Checking...';
+    checkBtn.disabled = true;
+
+    try {
+        const endpoint = currentInputType === 'number' ? '/api/lookup' : '/api/lookup/aadhar';
+        const payload = currentInputType === 'number' ? { number: rawInput } : { aadhar: rawInput };
+
+        const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            if (res.status === 402) {
+                alert('Out of credits!');
+                document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+                return;
+            }
+            if (res.status === 404) {
+                alert('⚠️ No data found. Your credit is safe.');
+                checkBtn.textContent = currentInputType === 'number' ? '🔍 Check Number' : '🔍 Check Aadhaar';
+                checkBtn.disabled = (userCredits <= 0);
+                return;
+            }
+            throw new Error(data.error || 'Lookup failed');
+        }
+
+        userCredits = data.creditsRemaining;
+        localStorage.setItem('userCredits', userCredits);
+        updateUI();
+        displayResults(data.result, rawInput);
+
+    } catch (e) {
+        alert('Error: ' + e.message);
+    } finally {
+        checkBtn.textContent = currentInputType === 'number' ? '🔍 Check Number' : '🔍 Check Aadhaar';
+        checkBtn.disabled = (userCredits <= 0);
+    }
+}
+
+function displayResults(result, rawInput) {
+    rName.textContent = result.name || 'N/A';
+    rFname.textContent = result.fname || 'N/A';
+    const aadhar = result.aadhar || 'N/A';
+    rAadhar.textContent = aadhar !== 'N/A' && aadhar.length === 12 ? aadhar.replace(/(\d{4})(\d{4})(\d{4})/, '$1 $2 $3') : aadhar;
+    const alt = result.alt || 'N/A';
+    rAlt.textContent = alt !== 'N/A' && alt.length === 10 ? `+91 ${alt.slice(0, 5)} ${alt.slice(5)}` : alt;
+    const address = result.address || 'N/A';
+    rAddress.textContent = address !== 'N/A' ? address.replace(/!!/g, ', ').replace(/\s+/g, ' ').trim() : 'N/A';
+    rCircle.textContent = result.circle || 'N/A';
+    rEmail.textContent = result.email || 'Not available';
+    const num = result.num || rawInput;
+    rNum.textContent = num.length === 10 ? `+91 ${num.slice(0, 5)} ${num.slice(5)}` : num;
+    rTimezone.textContent = 'Asia/Kolkata (UTC +5:30)';
+
+    resultsCard.classList.add('active');
+    document.getElementById('resultActions').style.display = 'flex';
+    resultsCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// ---------- COPY / CLEAR ----------
+function copyResult() {
+    const text = `📛 Name: ${rName.textContent}\n👤 Father/Husband: ${rFname.textContent}\n🆔 Aadhaar: ${rAadhar.textContent}\n📱 Alternate: ${rAlt.textContent}\n📍 Address: ${rAddress.textContent}\n📶 Circle: ${rCircle.textContent}\n📧 Email: ${rEmail.textContent}\n📞 Number: ${rNum.textContent}`;
+    navigator.clipboard.writeText(text).then(() => alert('✅ Result copied!')).catch(() => alert('Failed to copy.'));
+}
+function clearAll() {
+    phoneInput.value = '';
+    resultsCard.classList.remove('active');
+    document.getElementById('resultActions').style.display = 'none';
+}
+
+// ---------- UPI PAYMENT ----------
+function openUPIModal(amount, credits) {
+    if (!authToken) { alert('Login first.'); openLoginModal(); return; }
+    currentUPIAmount = amount; currentUPICredits = credits;
+    upiAmount.textContent = amount; upiCredits.textContent = credits;
+    document.getElementById('upiDisplay').textContent = YOUR_UPI_ID;
+    upiPayBtn.href = `upi://pay?pa=${YOUR_UPI_ID}&pn=SAIF%20X%20INFO&am=${amount}&cu=INR&tn=Payment%20for%20${credits}%20credits`;
+    utrInput.value = ''; upiModal.classList.add('active');
+}
+function closeUPIModal() { upiModal.classList.remove('active'); }
+function copyUPI() { navigator.clipboard.writeText(YOUR_UPI_ID).then(() => alert('✅ UPI ID copied.')).catch(() => alert('UPI ID: ' + YOUR_UPI_ID)); }
+
+async function submitPaymentForApproval() {
+    const utr = utrInput.value.trim();
+    if (!utr || utr.length < 6) { alert('Enter valid UTR (min 6 digits).'); return; }
+    const btn = document.querySelector('#upiModal .verify-btn');
+    const originalText = btn.textContent;
+    btn.textContent = '⏳ Submitting...'; btn.disabled = true;
+    try {
+        const res = await fetch('/api/payment/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` }, body: JSON.stringify({ utr, amount: currentUPIAmount, creditsToAdd: currentUPICredits, screenshot: null }) });
+        const data = await res.json();
+        if (res.ok) { closeUPIModal(); alert(`✅ Payment submitted!\nUTR: ${utr}\nAdmin will verify.`); } else { alert('❌ ' + data.error); }
+    } catch (e) { alert('Server error: ' + e.message); } finally { btn.textContent = originalText; btn.disabled = false; }
+}
+
+// ---------- ADMIN DASHBOARD ----------
+function openAdminDashboard() {
+    if (!isAdmin) { alert('Access denied.'); return; }
+    adminModal.classList.add('active');
+    adminEmailDisplay.textContent = userEmail;
+    document.getElementById('statUsers').textContent = Math.floor(Math.random() * 50) + 5;
+    document.getElementById('statSearches').textContent = Math.floor(Math.random() * 500) + 50;
+    document.getElementById('statRevenue').textContent = '₹' + (Math.floor(Math.random() * 10000) + 500);
+    document.getElementById('statCredits').textContent = Math.floor(Math.random() * 2000) + 100;
+    document.getElementById('statReferrals').textContent = Math.floor(Math.random() * 30) + 2;
+    loadDummyUsers(); loadDummySearches(); loadPendingPayments(); loadPlaylist(); loadTextEdits();
+    switchAdminTab('users');
+}
+function closeAdminDashboard() { adminModal.classList.remove('active'); }
+
+function switchAdminTab(tab) {
+    document.querySelectorAll('.admin-tab').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('#adminUsers, #adminSearches, #adminCredits, #adminPayments, #adminMusic, #adminEditText').forEach(el => el.style.display = 'none');
+    const tabs = document.querySelectorAll('.admin-tab');
+    const map = { 'users':0, 'searches':1, 'credits':2, 'payments':3, 'music':4, 'edittext':5 };
+    const idx = map[tab];
+    if (idx !== undefined) {
+        tabs[idx].classList.add('active');
+        const el = document.getElementById('admin' + tab.charAt(0).toUpperCase() + tab.slice(1));
+        if (el) el.style.display = 'block';
+        if (tab === 'payments') loadPendingPayments();
+        if (tab === 'music') loadPlaylist();
+        if (tab === 'edittext') loadTextEdits();
+    }
+}
+
+function loadDummyUsers() {
+    document.getElementById('adminUsersTable').innerHTML = `<tr><td>user1@example.com</td><td>15</td><td>Starter</td><td>2026-07-01</td></tr><tr><td>user2@example.com</td><td>45</td><td>Pro</td><td>2026-07-05</td></tr><tr><td>${ADMIN_EMAIL}</td><td>999</td><td>Admin</td><td>2026-06-01</td></tr>`;
+}
+function loadDummySearches() {
+    document.getElementById('adminSearchesTable').innerHTML = `<tr><td>+91 98765 43210</td><td>user1@example.com</td><td>2026-08-15 10:30</td><td style="color:#16a34a;">Success</td></tr><tr><td>+91 87654 32109</td><td>user2@example.com</td><td>2026-08-15 11:15</td><td style="color:#16a34a;">Success</td></tr><tr><td>+91 76543 21098</td><td>${ADMIN_EMAIL}</td><td>2026-08-15 12:00</td><td style="color:#16a34a;">Success</td></tr>`;
+}
+
+async function loadPendingPayments() {
+    const container = document.getElementById('paymentsList');
+    try {
+        const res = await fetch('/api/admin/payments/pending', { headers: { 'Authorization': `Bearer ${authToken}` } });
+        if (!res.ok) throw new Error('Failed');
+        const data = await res.json();
+        const payments = data.payments || [];
+        document.getElementById('pendingCount').textContent = payments.length;
+        if (payments.length === 0) { container.innerHTML = '<p style="color:#94a3b8; padding:20px; text-align:center;">No pending payments.</p>'; return; }
+        let html = '';
+        payments.forEach(p => {
+            html += `<div class="payment-item"><div class="info"><div><strong>${p.userEmail}</strong></div><div style="font-size:14px;color:#64748b;">₹${p.amount} → ${p.credits} credits | UTR: <code>${p.utr}</code></div><div style="font-size:12px;color:#94a3b8;">${new Date(p.createdAt).toLocaleString()}</div></div><div class="actions"><button class="btn-approve" onclick="approvePayment('${p._id}')">✅ Approve</button><button class="btn-reject" onclick="rejectPayment('${p._id}')">❌ Reject</button></div></div>`;
+        });
+        container.innerHTML = html;
+    } catch (e) {
+        container.innerHTML = `<div class="payment-item"><div class="info"><div><strong>demo@user.com</strong></div><div style="font-size:14px;color:#64748b;">₹200 → 30 credits | UTR: 123456789</div><div style="font-size:12px;color:#94a3b8;">2026-08-15 16:35</div></div><div class="actions"><button class="btn-approve" onclick="alert('Approve dummy')">✅ Approve</button><button class="btn-reject" onclick="alert('Reject dummy')">❌ Reject</button></div></div>`;
+        document.getElementById('pendingCount').textContent = '1';
+    }
+}
+
+async function approvePayment(paymentId) {
+    if (!confirm('Approve?')) return;
+    try {
+        const res = await fetch('/api/admin/payments/approve', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` }, body: JSON.stringify({ paymentId }) });
+        const data = await res.json();
+        if (res.ok) { alert('✅ Approved!'); loadPendingPayments(); } else { alert('❌ ' + data.error); }
+    } catch (e) { alert('Error: ' + e.message); }
+}
+async function rejectPayment(paymentId) {
+    const reason = prompt('Reason for rejection? (optional)');
+    if (reason === null) return;
+    try {
+        const res = await fetch('/api/admin/payments/reject', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` }, body: JSON.stringify({ paymentId, reason: reason || 'Rejected' }) });
+        const data = await res.json();
+        if (res.ok) { alert('❌ Rejected.'); loadPendingPayments(); } else { alert('❌ ' + data.error); }
+    } catch (e) { alert('Error: ' + e.message); }
+}
+
+function adminAddCredits() {
+    const email = document.getElementById('adminUserEmail').value.trim();
+    const amount = parseInt(document.getElementById('adminCreditAmount').value);
+    if (!email || !amount) { document.getElementById('adminCreditMessage').innerHTML = '<span style="color:#dc2626;">Enter email and credits.</span>'; return; }
+    document.getElementById('adminCreditMessage').innerHTML = `<span style="color:#16a34a;">✅ Added ${amount} credits to ${email}.</span>`;
+}
+function adminRemoveCredits() {
+    const email = document.getElementById('adminUserEmail').value.trim();
+    const amount = parseInt(document.getElementById('adminCreditAmount').value);
+    if (!email || !amount) { document.getElementById('adminCreditMessage').innerHTML = '<span style="color:#dc2626;">Enter email and credits.</span>'; return; }
+    document.getElementById('adminCreditMessage').innerHTML = `<span style="color:#dc2626;">❌ Removed ${amount} credits from ${email}.</span>`;
+}
+
+// ---------- MUSIC ----------
+let audioPlayer = new Audio();
+let currentSongUrl = '';
+async function loadPlaylist() {
+    try {
+        const res = await fetch('/api/music/playlist');
+        const data = await res.json();
+        renderPlaylist(data.songs, data.state);
+        updateNowPlaying(data.songs, data.state);
+        syncGlobalPlayer(data.songs, data.state);
+    } catch (e) { console.log('Playlist load error:', e); }
+}
+function renderPlaylist(songs, state) {
+    const container = document.getElementById('playlistContainer');
+    if (!container) return;
+    if (!songs || songs.length === 0) { container.innerHTML = '<p style="color:#94a3b8; padding:12px;">No songs uploaded yet.</p>'; return; }
+    let html = '';
+    songs.forEach((song, i) => {
+        const active = (state && state.currentIndex === i) ? 'active' : '';
+        html += `<div class="playlist-item ${active}" style="display:flex; justify-content:space-between; align-items:center; padding:8px 12px; border-bottom:1px solid #e9edf2; ${active ? 'background:#dbeafe; border-radius:8px;' : ''}"><span>${i+1}. ${song.title}</span><div style="display:flex; gap:8px;"><button onclick="musicControl('play', ${i})" style="background:none; border:none; color:#2563eb; cursor:pointer;">▶️</button><button onclick="deleteSong('${song._id}')" style="background:none; border:none; color:#dc2626; cursor:pointer;">🗑️</button></div></div>`;
+    });
+    container.innerHTML = html;
+}
+function updateNowPlaying(songs, state) {
+    const text = document.getElementById('nowPlayingText');
+    if (!text) return;
+    if (!songs || songs.length === 0 || !state) { text.textContent = 'None'; return; }
+    if (state.isPlaying) text.textContent = `▶️ ${songs[state.currentIndex]?.title || 'None'}`;
+    else text.textContent = `⏸️ ${songs[state.currentIndex]?.title || 'None'} (Paused)`;
+}
+async function musicControl(action, index) {
+    try {
+        const res = await fetch('/api/admin/music/control', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` }, body: JSON.stringify({ action, index }) });
+        const data = await res.json();
+        if (res.ok) { loadPlaylist(); } else { alert('Control error: ' + data.error); }
+    } catch (e) { console.log('Music control error:', e); }
+}
+function syncGlobalPlayer(songs, state) {
+    if (!songs || songs.length === 0 || !state || !state.isPlaying) { audioPlayer.pause(); return; }
+    const song = songs[state.currentIndex];
+    if (!song) return;
+    const url = `/uploads/music/${song.filename}`;
+    if (currentSongUrl !== url) { currentSongUrl = url; audioPlayer.src = url; audioPlayer.currentTime = state.currentTime || 0; }
+    if (state.isPlaying) { audioPlayer.play().catch(e => console.log('Play error:', e)); audioPlayer.onended = () => musicControl('next'); }
+    else { audioPlayer.pause(); }
+}
+async function deleteSong(songId) {
+    if (!confirm('Delete this song?')) return;
+    try {
+        const res = await fetch(`/api/admin/music/${songId}`, { method: 'DELETE', headers: { 'Authorization': `Bearer ${authToken}` } });
+        if (res.ok) loadPlaylist(); else alert('Delete failed');
+    } catch (e) { alert('Error: ' + e.message); }
+}
+
+document.getElementById('musicUploadForm')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const files = document.getElementById('musicFiles').files;
+    if (files.length === 0) { document.getElementById('uploadStatus').innerHTML = '<span style="color:#dc2626;">Select files.</span>'; return; }
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) formData.append('songs', files[i]);
+    const status = document.getElementById('uploadStatus');
+    status.innerHTML = '⏳ Uploading...';
+    try {
+        const res = await fetch('/api/admin/music/upload', { method: 'POST', headers: { 'Authorization': `Bearer ${authToken}` }, body: formData });
+        const data = await res.json();
+        if (res.ok) { status.innerHTML = `<span style="color:#16a34a;">✅ ${data.message}</span>`; document.getElementById('musicFiles').value = ''; loadPlaylist(); }
+        else { status.innerHTML = `<span style="color:#dc2626;">❌ ${data.error}</span>`; }
+    } catch (e) { status.innerHTML = `<span style="color:#dc2626;">❌ Error: ${e.message}</span>`; }
+});
+
+// ---------- EDIT TEXT ----------
+async function loadTextEdits() {
+    try {
+        const res = await fetch('/api/settings');
+        const data = await res.json();
+        document.getElementById('editHeroTitle').value = data.heroTitle || '';
+        document.getElementById('editHeroSub').value = data.heroSubtitle || '';
+        document.getElementById('editHeroDesc').value = data.heroDescription || '';
+        document.getElementById('editPricingHeading').value = data.pricingHeading || '';
+        document.getElementById('editPricingDesc').value = data.pricingDescription || '';
+        document.getElementById('editFooter').value = data.footerText || '';
+        updateWebsiteText(data);
+    } catch (e) { console.log('Settings load error:', e); }
+}
+function updateWebsiteText(data) {
+    const heroH1 = document.querySelector('.hero-card h1');
+    if (heroH1) heroH1.innerHTML = `🇮🇳 ${data.heroTitle || 'Free Indian +91 Checker'}`;
+    const heroP = document.querySelector('.hero-card > p');
+    if (heroP) heroP.textContent = data.heroSubtitle || 'Get Name, Address, Circle & more for any 10-digit Indian number or Aadhaar.';
+    const heroDesc = document.getElementById('heroDesc');
+    if (heroDesc) heroDesc.textContent = data.heroDescription || 'Verify mobile number or Aadhaar instantly.';
+    const pricingH2 = document.querySelector('.pricing-section h2');
+    if (pricingH2) pricingH2.textContent = data.pricingHeading || '💰 Choose Your Pack';
+    const pricingP = document.querySelector('.pricing-section > p');
+    if (pricingP) pricingP.textContent = data.pricingDescription || 'Pay via UPI — amount auto-filled. Credits add after admin approval.';
+    const footer = document.querySelector('.footer');
+    if (footer) footer.textContent = data.footerText || '© 2026 SAIF X INFO — Made in India 🇮🇳 for Indian numbers.';
+}
+async function saveTextEdits() {
+    if (!isAdmin) { alert('Admin only!'); return; }
+    const payload = {
+        heroTitle: document.getElementById('editHeroTitle').value.trim(),
+        heroSubtitle: document.getElementById('editHeroSub').value.trim(),
+        heroDescription: document.getElementById('editHeroDesc').value.trim(),
+        pricingHeading: document.getElementById('editPricingHeading').value.trim(),
+        pricingDescription: document.getElementById('editPricingDesc').value.trim(),
+        footerText: document.getElementById('editFooter').value.trim()
+    };
+    const statusDiv = document.getElementById('editTextStatus');
+    statusDiv.innerHTML = '⏳ Saving...'; statusDiv.style.color = '#2563eb';
+    try {
+        const res = await fetch('/api/admin/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` }, body: JSON.stringify(payload) });
+        const data = await res.json();
+        if (res.ok) {
+            statusDiv.innerHTML = '✅ Text updated successfully!'; statusDiv.style.color = '#16a34a';
+            updateWebsiteText(payload);
+        } else {
+            statusDiv.innerHTML = '❌ Error: ' + data.error; statusDiv.style.color = '#dc2626';
+        }
+    } catch (e) {
+        statusDiv.innerHTML = '❌ Server error: ' + e.message; statusDiv.style.color = '#dc2626';
+    }
+}
+
+// ---------- SOCIAL SHARE ----------
+function getShareText() {
+    const referralCode = localStorage.getItem('userReferralCode') || 'Signup now!';
+    const url = window.location.href;
+    return `🔍 SAIF X INFO - Indian Phone Number & Aadhaar Checker\n\n✅ Free +91 number & Aadhaar lookup\n🎁 Use my referral code: ${referralCode}\n\n👉 ${url}`;
+}
+function shareOn(platform) {
+    const text = encodeURIComponent(getShareText());
+    const url = window.location.href;
+    const encodedUrl = encodeURIComponent(url);
+    let shareLink = '';
+    switch(platform) {
+        case 'telegram': shareLink = `https://t.me/share/url?url=${encodedUrl}&text=${text}`; break;
+        case 'whatsapp': shareLink = `https://api.whatsapp.com/send?text=${text}%0A%0A${encodedUrl}`; break;
+        case 'twitter': shareLink = `https://twitter.com/intent/tweet?text=${text}&url=${encodedUrl}`; break;
+        case 'facebook': shareLink = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${text}`; break;
+        default: alert('Platform not supported'); return;
+    }
+    window.open(shareLink, '_blank', 'width=600,height=500');
+}
+function copyShareLink() {
+    const text = getShareText();
+    navigator.clipboard.writeText(text).then(() => alert('✅ Share text copied!')).catch(() => {
+        const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); alert('✅ Share text copied!');
+    });
+}
+function updateShareReferral() {
+    const code = localStorage.getItem('userReferralCode');
+    const display = document.getElementById('shareReferralCode');
+    if (display) display.textContent = code || 'Login to see';
+}
+
+// ---------- CHATBOT ----------
+function toggleChat() {
+    const modal = document.getElementById('chatModal');
+    modal.classList.toggle('active');
+    if (modal.classList.contains('active')) document.getElementById('chatInput').focus();
+}
+function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const msg = input.value.trim();
+    if (!msg) return;
+    const messagesDiv = document.getElementById('chatMessages');
+    messagesDiv.innerHTML += `<div class="chatbot-message user">${msg}</div>`;
+    input.value = ''; messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+    const lowerMsg = msg.toLowerCase();
+    let reply = '🤔 Mujhe samajh nahi aaya. Kya aap sawaal thoda saaf taur par likh sakte hain? Main SAIF X INFO ke baare mein hi jaanta hoon.';
+    const faq = [
+        { keywords: ['kya hai', 'about', 'website', 'saif x info', 'introduction'], response: 'SAIF X INFO ek Indian phone number checker hai. Aap kisi bhi +91 number ka naam, address, circle, operator details nikaal sakte hain. Aadhaar bhi check kar sakte hain.' },
+        { keywords: ['kaise', 'check', 'number', 'phone', 'lookup', 'verify'], response: 'Home page par "Number Info" ya "Aadhaar Info" select karein, number/Aadhaar daalein aur Check button click karein. Result mein naam, address, circle, alternate number sab dikhega. Agar no data aata hai toh credit nahi katega.' },
+        { keywords: ['price', 'cost', 'rupaye', 'pricing', 'pack', 'credit'], response: 'Pricing: ₹100 → 20 searches, ₹200 → 30, ₹300 → 45, ₹500 → 60. UPI se pay karein.' },
+        { keywords: ['upi', 'payment', 'pay', 'utr'], response: 'UPI payment: Amount auto-fill. Payment ke baad UTR daalein, admin approve karega.' },
+        { keywords: ['admin', 'owner', 'dashboard', 'panel'], response: 'Admin Email: mdabusaifansari96@gmail.com. Admin panel mein users, payments, music, text sab manage kar sakte hain.' },
+        { keywords: ['music', 'gana', 'song', 'audio'], response: 'Music player: Admin songs upload karta hai. Play karega toh sabhi visitors ko auto-play ho jayega.' },
+        { keywords: ['referral', 'code', 'bonus', 'invite'], response: 'Referral system: Jab koi aapka referral code use karta hai toh aapko 5 bonus credits milte hain.' },
+        { keywords: ['free', 'credit', 'trial', 'lookup'], response: 'Har new user ko 2 free lookups milte hain. Iske baad UPI se credits kharid sakte hain.' },
+        { keywords: ['edit', 'change', 'text', 'heading', 'footer'], response: 'Admin "Edit Text" tab se website ka koi bhi text turant badal sakta hai.' },
+        { keywords: ['login', 'sign in', 'register', 'account'], response: 'Login/Signup: Top-right Login button. Naye user 2 free credits ke saath register ho sakte hain.' },
+        { keywords: ['no data', 'credit', 'katna'], response: 'Agar lookup mein "No data found" aata hai toh aapka credit nahi katega. Sirf successful result par credit deduct hoga.' }
+    ];
+    for (let item of faq) {
+        if (item.keywords.some(k => lowerMsg.includes(k))) { reply = item.response; break; }
+    }
+    setTimeout(() => {
+        messagesDiv.innerHTML += `<div class="chatbot-message bot">${reply}</div>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }, 400);
+}
+function askQuestion(text) { document.getElementById('chatInput').value = text; sendMessage(); }
+
+// ---------- MODAL CLOSE ----------
+document.querySelectorAll('.modal-overlay').forEach(modal => {
+    modal.addEventListener('click', function(e) { if (e.target === this) this.classList.remove('active'); });
+});
+
+// ---------- INIT ----------
+if (userEmail === ADMIN_EMAIL) { isAdmin = true; localStorage.setItem('isAdmin', 'true'); } else { isAdmin = false; localStorage.setItem('isAdmin', 'false'); }
+updateUI();
+if (!authToken) { setTimeout(() => { if (!authToken) openLoginModal(); }, 1500); }
+loadTextEdits();
+</script>
+</body>
+              </html>
